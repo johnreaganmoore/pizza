@@ -5,15 +5,25 @@ require_relative '../pizza'
 
 describe Pizza::Pie do
   describe '.initialize' do
-    it 'records all of the toppings' do
-      toppings = [
-        Pizza::Topping.new('mushrooms', vegetarian: true),
-        Pizza::Topping.new('pepperoni')
-      ]
+    context 'Passing in toppings to the new pie' do
+      it 'records all of the toppings' do
+        toppings = [
+          Pizza::Topping.new('mushrooms', vegetarian: true),
+          Pizza::Topping.new('pepperoni')
+        ]
 
-      pizza = Pizza::Pie.new(toppings)
+        pizza = Pizza::Pie.new(toppings)
 
-      expect(pizza.toppings).to eq(toppings)
+        expect(pizza.toppings).to eq(toppings)
+      end
+    end
+    context 'No toppings passed into the new pie' do
+      it 'defaults the toppings to cheese only, if the pizza has no toppings' do
+        pizza = Pizza::Pie.new
+
+        expect(pizza.toppings.size).to eq(1)
+        expect(pizza.toppings.first.name).to eq('cheese')
+      end
     end
   end
 end 
